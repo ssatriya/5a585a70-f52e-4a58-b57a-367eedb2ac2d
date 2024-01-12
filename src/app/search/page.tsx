@@ -1,20 +1,22 @@
 import * as React from "react";
 
-import Post from "@/components/post/post";
+import SearchPost from "@/components/post/search-post";
 import PostItem from "@/components/post/post-item";
 
-export type HomeProps = {
+type SearchPageProps = {
   searchParams?: {
     page: string;
+    q: string;
   };
 };
-
-export default function Home({ searchParams }: HomeProps) {
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const param = searchParams?.q || "";
   const pageNumber = Number(searchParams?.page || 1);
+
   return (
     <div className="h-full flex-col items-center justify-center">
       <React.Suspense fallback={<PostItem.Skeleton />}>
-        <Post pageNumber={pageNumber} />
+        <SearchPost pageNumber={pageNumber} param={param} />
       </React.Suspense>
     </div>
   );
